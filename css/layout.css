@@ -20,7 +20,7 @@
         margin: 2px;
         border: solid 4px #224a54;
         color:white; font-size:18pt; 
-        text-align:left; font-weight:bold; height:70px;
+        text-align:left; font-weight:bold; height:40px;
       }
       #subheader {
         font-size:small;
@@ -43,10 +43,10 @@
      }
 
       #footer {
-        margin: 2px;
-        border: solid 2px #224a54;
+        margin: 0,5px;
+        border: solid 0,5px #224a54;
         background-color:#ecefe4;color:#3f3f3f;
-       font-size:10pt; text-align:center; height:40px;
+       font-size:10pt; text-align:center; height:90px;
       }
       .dijitTabInnerDiv{
         background-color:#ecefe4;
