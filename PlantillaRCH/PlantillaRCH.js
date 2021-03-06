@@ -15,9 +15,10 @@ require(["esri/map",
     "esri/dijit/BasemapGallery",
     //Para dibujar en mapa un polígono y hacer seleccion.
     "esri/layers/FeatureLayer",
-   
+    "esri/dijit/FeatureTable",
     "esri/toolbars/draw",
     "esri/graphic",
+    "esri/graphicsUtils",
     "esri/tasks/query",
     //Para introducir el widget Overview
     "esri/dijit/OverviewMap",
@@ -45,8 +46,8 @@ require(["esri/map",
     "dijit/layout/ContentPane",
     "dijit/layout/BorderContainer",
     "dojo/domReady!"],
-    function (Map, ArcGISDynamicMapServiceLayer, Extent, Scalebar, Legend, BasemapGallery, FeatureLayer, Draw,
-        Graphic, query, OverviewMap, Search, PopupTemplate, on, ready, parser, dom, Memory, locale, Grid, Selection,
+    function (Map, ArcGISDynamicMapServiceLayer, Extent, Scalebar, Legend, BasemapGallery, FeatureLayer, FeatureTable, Draw,
+        Graphic, graphicsUtils, query, OverviewMap, Search, PopupTemplate, on, ready, parser, dom, Memory, locale, Grid, Selection,
         Color, declare, array, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol
     ) {
 
@@ -58,6 +59,13 @@ require(["esri/map",
 
        on(dojo.byId("pintaYQuery"), "click", fPintaYQuery);
        on(dojo.byId("progButtonNode"), "click", fQueryEstados);
+
+       function fPintaYQuery() {
+        alert("Evento del botón Seleccionar ciudades");
+      }
+      function fQueryEstados() {
+        alert("Evento del botón Ir a estado");
+      }
 
        function fPintaYQuery(){
     
@@ -74,11 +82,11 @@ require(["esri/map",
           );
               
           //borra los poligonos dibujados
-          map.graphics.clear();
+          mapMain.graphics.clear();
           
           //Para añadir el Graphic layer al mapa. 
           var graphicPolygon = new Graphic(geometryInputCities, tbSymbolCities);
-          map.graphics.add(graphicPolygon);
+          mapMain.graphics.add(graphicPolygon);
           
           //funcion para selecionar las ciudades
           //Simbolo de seleción  de las ciudades
@@ -110,8 +118,8 @@ require(["esri/map",
       on(dojo.byId("clear"),"click",fClearCities);
       
       function fClearCities (){
-        ftCities.clearSelection();
-        map.graphics.clear();
+        lyrCities.clearSelection();
+        mapMain.graphics.clear();
         TableCities.clearFilter()
         tb.deactivate()
       }
@@ -264,32 +272,32 @@ require(["esri/map",
        * Paso 12: En la pestaña de la izquierda que define la funcion de selección de la capa de ciudades,
         insertamos una tabla que nos defina los campos de las entidades seleccionadas.
        */
-        lyrCities.on("load", function(){
-            TableCities =  new FeatureTable({
-              featureLayer : lyrCities,
-              map : mapMain,
-              outFields:["st", "areaname","class", "pop2000"],
-              syncSelection: true,
-              zoomToSelection:true,
-              fieldInfos: [
-                {
-                  name: 'st',
-                  alias: 'Estado'
-                },
-                {
-                  name: 'areaname',
-                  alias: 'Ciudad'
-                },{
-                  name: 'class',
-                  alias: 'Clase'
-                },{
-                  name: 'pop2000',
-                  alias: 'Habitantes'
-                }],
-              }, "TableNode");
-              
-              TableCities.startup();
-            }) 
+      lyrCities.on("load", function(){
+        TableCities =  new FeatureTable({
+          featureLayer : lyrCities,
+          map : mapMain,
+          outFields:["st", "areaname","class", "pop2000"],
+          syncSelection: true,
+          zoomToSelection:true,
+          fieldInfos: [
+            {
+              name: 'st',
+              alias: 'Estado'
+            },
+            {
+              name: 'areaname',
+              alias: 'Ciudad'
+            },{
+              name: 'class',
+              alias: 'Clase'
+            },{
+              name: 'pop2000',
+              alias: 'Habitantes'
+            }],
+          }, "TableNode");
+          
+          TableCities.startup();
+        }) 
         
     });
 
