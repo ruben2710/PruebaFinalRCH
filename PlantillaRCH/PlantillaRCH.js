@@ -50,7 +50,15 @@ require(["esri/map",
         Graphic, graphicsUtils, query, OverviewMap, HomeButton, Search, PopupTemplate, on, ready, parser, dom, Memory, locale, Grid, Selection,
         Color, declare, array, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol
     ) {
+        var boton01 = dojo.byId("pintaYQuery");
+        dojo.connect(boton01, "click", fPintaYQuery);
 
+        var boton02 = dojo.byId("progButtonNode");
+        dojo.connect(boton02, "click", fQueryEstados);
+
+        var boton03 = dojo.byId("clear");
+        dojo.connect(boton03, "click", fClearCities);
+        
         /*
        * Paso 11: En el panel tareas tenemos un botón que cuando pulsemos sobre él, activaremos la herramienta Draw para poder 
        seleccionar desde el mapa ciudades (con temática de puntos amarillos y con el identificador 0 del MapServer) creando una extensión. 
